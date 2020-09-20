@@ -2,11 +2,19 @@
 name: dist
 on: [push]
 
+defaults:
+  runs-on: ubuntu-latest
+  container: robotpy/roborio-cross-ubuntu:2020.1-20.04
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+
+  test1:
     steps:
     - uses: actions/checkout@v2
-    - uses: robotpy/build-actions/something@master
-      with:
-        who-to-greet: 'Mona the Octocat'
+    - run: ls /
+
+  test2:
+    steps:
+    - uses: actions/checkout@v2
+    - run: ls /
+    
