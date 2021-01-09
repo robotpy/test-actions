@@ -2,19 +2,20 @@
 name: dist
 on: [push]
 
-defaults:
-  runs-on: ubuntu-latest
-  container: robotpy/roborio-cross-ubuntu:2020.1-20.04
-
 jobs:
-
   test1:
-    steps:
-    - uses: actions/checkout@v2
-    - run: ls /
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container:
+        - name: robotpy/roborio-cross-ubuntu:2021.3
+          dir:  roborio
+        - name: robotpy/raspbian-cross-ubuntu:2021.2
+          dir:  raspbian
 
-  test2:
+    container:
+      image: "${{ matrix.container.name }}"
+
     steps:
     - uses: actions/checkout@v2
-    - run: ls /
-    
+    - run: echo ${{ matrix.container.dir }}
