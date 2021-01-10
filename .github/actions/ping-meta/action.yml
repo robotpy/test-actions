@@ -1,0 +1,13 @@
+name: ping-meta
+description: "Pings the robotpy-meta repository"
+inputs:
+  version:
+    description: "Package version"
+    required: true
+runs:
+  using: composite
+  steps:
+  - name: Ping meta
+    shell: bash
+    run: |
+      echo Hi there version=${{ inputs.version }}

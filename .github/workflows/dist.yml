@@ -5,17 +5,8 @@ on: [push]
 jobs:
   test1:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        container:
-        - name: robotpy/roborio-cross-ubuntu:2021.3
-          dir:  roborio
-        - name: robotpy/raspbian-cross-ubuntu:2021.2
-          dir:  raspbian
-
-    container:
-      image: "${{ matrix.container.name }}"
-
     steps:
     - uses: actions/checkout@v2
-    - run: echo ${{ matrix.container.dir }}
+    - uses: ./.github/actions/ping-meta
+      with:
+        version: the version
