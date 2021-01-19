@@ -8,6 +8,6 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
 
     steps:
-    - uses: robotpy/build-actions/ping-meta@test-meta-cfg
+    - uses: robotpy/build-actions/ping-meta@vtest
       with:
         token: ${{ secrets.REPO_ACCESS_TOKEN }}
