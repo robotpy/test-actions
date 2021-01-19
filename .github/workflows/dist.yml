@@ -3,10 +3,11 @@ name: dist
 on: [push]
 
 jobs:
-  test1:
+  ping:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: ./.github/actions/ping-meta
+    - uses: robotpy/build-actions/ping-meta@test-meta-cfg
       with:
-        version: the version
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
