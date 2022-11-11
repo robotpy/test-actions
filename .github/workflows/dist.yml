@@ -3,11 +3,33 @@ name: dist
 on: [push]
 
 jobs:
-  ping:
+  setup_concurrency:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+    steps:
+    - name: Setup concurrency
+      shell: bash
+      id: max-parallel
+      run: |
+        if [[ "{{ github.ref_name }}" == "master" ]]; then
+          echo 1 >> $GITHUB_OUTPUT
+        else
+          echo 1000 >> $GITHUB_OUTPUT
+        fi
+
+  build:
+    runs-on: ${{ matrix.os }}
+    needs: [setup_concurrency]
+    strategy:
+      max-parallel: ${{ jobs.setup_concurrency.steps.max-parallel }}
+      matrix: 
+        os: ["windows-2022", "macos-11", "ubuntu-22.04"]
+        python_version:
+        - '3.7'
+        - '3.8'
+        - '3.9'
+        - '3.10'
+        - '3.11'
 
     steps:
-    - uses: robotpy/build-actions/ping-meta@vtest
-      with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+    - shell: bash
+      run: sleep 5
