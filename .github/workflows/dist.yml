@@ -1,6 +1,12 @@
 ---
 name: dist
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+    - main
+    tags:
+    - '*'
 
 jobs:
   setup_concurrency:
@@ -36,4 +42,5 @@ jobs:
 
     steps:
     - shell: bash
-      run: sleep 5
+      run: |
+        echo "${{ github.ref_name }} argument"
