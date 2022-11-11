@@ -18,7 +18,7 @@ jobs:
       shell: bash
       id: max-parallel
       run: |
-        if [[ "{{ github.ref_name }}" == "master" ]]; then
+        if [[ "${{ github.ref_name }}" == "master" ]]; then
           echo "PARALLEL=1"
           echo "p={\"v\": 1}" >> $GITHUB_OUTPUT
         else
@@ -44,3 +44,4 @@ jobs:
     - shell: bash
       run: |
         echo "${{ github.ref_name }} argument"
+        sleep 5
