@@ -20,17 +20,17 @@ jobs:
       run: |
         if [[ "{{ github.ref_name }}" == "master" ]]; then
           echo "PARALLEL=1"
-          echo "p=1" >> $GITHUB_OUTPUT
+          echo "p={\"v\": 1}" >> $GITHUB_OUTPUT
         else
           echo "PARALLEL=1000"
-          echo "p=1000" >> $GITHUB_OUTPUT
+          echo "p={\"v\": 1000}" >> $GITHUB_OUTPUT
         fi
 
   build:
     runs-on: ${{ matrix.os }}
     needs: [setup_concurrency]
     strategy:
-      max-parallel: {{ needs.setup_concurrency.outputs.max-parallel }}
+      max-parallel: ${{ fromJSON(needs.setup_concurrency.outputs.max-parallel)["v"] }}
       matrix: 
         os: ["windows-2022", "macos-11", "ubuntu-22.04"]
         python_version:
