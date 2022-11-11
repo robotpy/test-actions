@@ -13,8 +13,10 @@ jobs:
       id: max-parallel
       run: |
         if [[ "{{ github.ref_name }}" == "master" ]]; then
+          echo "PARALLEL=1"
           echo "p=1" >> $GITHUB_OUTPUT
         else
+          echo "PARALLEL=1000"
           echo "p=1000" >> $GITHUB_OUTPUT
         fi
 
