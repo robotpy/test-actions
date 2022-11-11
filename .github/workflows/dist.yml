@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs: [setup_concurrency]
     strategy:
-      max-parallel: ${{ needs.setup_concurrency.outputs.max-parallel }}
+      max-parallel: {{ needs.setup_concurrency.outputs.max-parallel }}
       matrix: 
         os: ["windows-2022", "macos-11", "ubuntu-22.04"]
         python_version:
